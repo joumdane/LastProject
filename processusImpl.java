@@ -9,20 +9,17 @@ public class processusImpl extends processusPOA{
 	//Attributs	
 	private int uid;
 	private String successeur;
-	private boolean elu;
-	private int max_uid;
 	private String successeurPanne;
+	
 
 	//Constructeurs
 	public processusImpl(){
 	}	
 	
-	public processusImpl(int uid, String successeur, String successeurPanne, boolean elu){
+	public processusImpl(int uid, String successeur,String successeurPanne){
 		this.uid = uid;
 		this.successeur = successeur;
-		this.successeurPanne = successeurPanne;
-		this.elu = elu;
-		this.max_uid = uid;
+		this.successeurPanne=this.successeurPanne;
 	}
 	
 	//Setters
@@ -30,9 +27,6 @@ public class processusImpl extends processusPOA{
 		this.uid = uid;	
 	}
 
-	public void max_uid(int max_uid){
-		this.max_uid = max_uid;	
-	}
 
 	public void successeur(String successeur){
 		this.successeur = successeur;	
@@ -42,17 +36,9 @@ public class processusImpl extends processusPOA{
 		this.successeurPanne = successeurPanne;	
 	}
 
-	public void elu(boolean elu){
-		this.elu = elu;	
-	}
-	
 	//Getters
 	public int uid(){
 		return uid;	
-	}
-
-	public int max_uid(){
-		return max_uid;	
 	}
 
 	public String successeur(){
@@ -63,19 +49,18 @@ public class processusImpl extends processusPOA{
 		return successeurPanne;	
 	}
 
-	public boolean elu(){
-		return elu;	
-	}
-
-	public int recevoir(int uid){
-		if(uid > this.max_uid ){
-			max_uid = uid; 
+	public void recevoir(IntHolder max){
+		if(uid > max.value){
+			max.value = uid; 
+		System.out.println("Le processus p"+uid()+" trouve qu'il a un plus grand uid : "+uid);				
 		}
-		else if(this.max_uid==uid){
+/*
+		else if(max==uid){
 			elu(true);
-			System.out.println("L'elu est le processus p"+uid);
 		}
-		return max_uid;
+*/
+		System.out.println("L'elu est le processus p"+max.value);
+
 	}
 
 }

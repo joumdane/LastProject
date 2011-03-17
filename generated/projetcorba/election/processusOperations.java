@@ -16,9 +16,5 @@ public interface processusOperations
 	void successeur(java.lang.String arg);
 	java.lang.String successeurPanne();
 	void successeurPanne(java.lang.String arg);
-	boolean elu();
-	void elu(boolean arg);
-	int max_uid();
-	void max_uid(int arg);
-	int recevoir(int uid);
+	void recevoir(org.omg.CORBA.IntHolder max);
 }

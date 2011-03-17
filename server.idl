@@ -15,10 +15,8 @@ module projetcorba {
        	 	attribute long uid;
         	attribute string successeur;
 		attribute string successeurPanne;
-		attribute boolean elu;
-		attribute long max_uid;
 
-		long recevoir(in long uid);
+		void recevoir(inout long max);
 		
 	};
 

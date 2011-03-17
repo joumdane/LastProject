@@ -20,6 +20,9 @@ public class Outil{
 		System.out.println("- Démarrage de l'élection");
 	        processus currentPs = Outil.lookupRef("" + uid, orb);
 		boolean found = false;
+		boolean fin_algo=false;
+		IntHolder max = new IntHolder();
+		max.value=uid;
 		String successeur=currentPs.successeur();
 		//int uid=Integer.parseInt(uid);
 		processus p = null;
@@ -29,14 +32,16 @@ public class Outil{
 			File fichier = new File("p"+successeur+".ref");
 			if(!fichier.exists())
 			{
-				System.out.println("fff");
+				System.out.println("Le processus p"+successeur+" est inexistant!!");
 				break;						
 			}
 			p = Outil.lookupRef(successeur,orb);
 			successeur=p.successeur();
 			
 			if(successeur.equals((""+uid))){
-				System.out.println("TROUVE!!!");						
+				System.out.println("Anneau bien Forme");
+				//On retourne à l'uid courant
+				p = Outil.lookupRef(successeur,orb);						
 				found=true;
 				break;
 			}
@@ -44,23 +49,25 @@ public class Outil{
 		}//fin while
 		if(found){
 			 //lancer algorithme;
-			boolean fin_algo=false;
-			System.out.println("lancement algo");
-			p = Outil.lookupRef(successeur,orb);
-			successeur=p.successeur();
-			
-			while(!fin_algo){
 
-				p = Outil.lookupRef(successeur,orb);
-				System.out.println("le sucesseur : "+successeur);
-				System.out.println("uid envoye : "+uid);
-				uid=p.recevoir(uid);
-				System.out.println("uid reçu : "+uid);
+			System.out.println("Debut algorithme Chang et Robert");
+			successeur=p.successeur();
+			//On se positionne sur l'element qui suit celui qui a déclenché l'election afin d'invoquer
+			//la méthode recevoir
+			p = Outil.lookupRef(successeur,orb);
+			
+
+			while(!fin_algo){
+				
+
+				System.out.println("Le processus p"+p.uid()+" recoit l'uid "+max.value);
+				p.recevoir(max);
 				successeur=p.successeur();
-				if(p.elu()){
+				p = Outil.lookupRef(successeur,orb);
+				if(p.uid()==max.value){
 					fin_algo=true;
 					}
-				System.out.println("Elu courant : "+uid);
+				System.out.println("---------Elu courant : "+max.value);
 			try{
 				orb_run.sleep(2000);
 			}catch(Exception e){
@@ -69,7 +76,7 @@ public class Outil{
 		
 			
 			}//fin while
-			System.out.println("Le gagnant est : "+uid);
+			System.out.println("-----------------------Le gagnant est : "+max.value);
 		}//fin if
 		else{
 			 System.out.println("ANNEAU NON FORME");
@@ -82,7 +89,7 @@ public class Outil{
 	try{
 	    poa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             poa.the_POAManager().activate();	
-    	    processusImpl machine = new processusImpl(uid, successeur,successeurPanne, false);
+    	    processusImpl machine = new processusImpl(uid, successeur,successeurPanne);
 	    org.omg.CORBA.Object tmp = poa.servant_to_reference(machine);	
 	    try {
 		String processus_ref = orb.object_to_string(tmp);

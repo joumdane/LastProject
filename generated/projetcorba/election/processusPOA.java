@@ -13,17 +13,13 @@ public abstract class processusPOA
 	static private final java.util.Hashtable m_opsHash = new java.util.Hashtable();
 	static
 	{
-		m_opsHash.put ( "_set_max_uid", new java.lang.Integer(0));
-		m_opsHash.put ( "_get_max_uid", new java.lang.Integer(1));
-		m_opsHash.put ( "_set_uid", new java.lang.Integer(2));
-		m_opsHash.put ( "_get_uid", new java.lang.Integer(3));
-		m_opsHash.put ( "recevoir", new java.lang.Integer(4));
-		m_opsHash.put ( "_set_successeurPanne", new java.lang.Integer(5));
-		m_opsHash.put ( "_set_elu", new java.lang.Integer(6));
-		m_opsHash.put ( "_set_successeur", new java.lang.Integer(7));
-		m_opsHash.put ( "_get_successeurPanne", new java.lang.Integer(8));
-		m_opsHash.put ( "_get_elu", new java.lang.Integer(9));
-		m_opsHash.put ( "_get_successeur", new java.lang.Integer(10));
+		m_opsHash.put ( "_get_successeurPanne", new java.lang.Integer(0));
+		m_opsHash.put ( "recevoir", new java.lang.Integer(1));
+		m_opsHash.put ( "_get_uid", new java.lang.Integer(2));
+		m_opsHash.put ( "_set_successeurPanne", new java.lang.Integer(3));
+		m_opsHash.put ( "_set_uid", new java.lang.Integer(4));
+		m_opsHash.put ( "_get_successeur", new java.lang.Integer(5));
+		m_opsHash.put ( "_set_successeur", new java.lang.Integer(6));
 	}
 	private String[] ids = {"IDL:projetcorba/election/processus:1.0"};
 	public projetcorba.election.processus _this()
@@ -45,71 +41,49 @@ public abstract class processusPOA
 			throw new org.omg.CORBA.BAD_OPERATION(method + " not found");
 		switch ( opsIndex.intValue() )
 		{
-			case 0: // _set_max_uid
-			{
-			_out = handler.createReply();
-			max_uid(_input.read_long());
-				break;
-			}
-			case 1: // _get_max_uid
-			{
-			_out = handler.createReply();
-			_out.write_long(max_uid());
-				break;
-			}
-			case 2: // _set_uid
-			{
-			_out = handler.createReply();
-			uid(_input.read_long());
-				break;
-			}
-			case 3: // _get_uid
-			{
-			_out = handler.createReply();
-			_out.write_long(uid());
-				break;
-			}
-			case 4: // recevoir
-			{
-				int _arg0=_input.read_long();
-				_out = handler.createReply();
-				_out.write_long(recevoir(_arg0));
-				break;
-			}
-			case 5: // _set_successeurPanne
-			{
-			_out = handler.createReply();
-			successeurPanne(_input.read_string());
-				break;
-			}
-			case 6: // _set_elu
-			{
-			_out = handler.createReply();
-			elu(_input.read_boolean());
-				break;
-			}
-			case 7: // _set_successeur
-			{
-			_out = handler.createReply();
-			successeur(_input.read_string());
-				break;
-			}
-			case 8: // _get_successeurPanne
+			case 0: // _get_successeurPanne
 			{
 			_out = handler.createReply();
 			_out.write_string(successeurPanne());
 				break;
 			}
-			case 9: // _get_elu
+			case 1: // recevoir
 			{
-			_out = handler.createReply();
-			_out.write_boolean(elu());
+				org.omg.CORBA.IntHolder _arg0= new org.omg.CORBA.IntHolder();
+				_arg0._read (_input);
+				_out = handler.createReply();
+				recevoir(_arg0);
+				_out.write_long(_arg0.value);
 				break;
 			}
-			case 10: // _get_successeur
+			case 2: // _get_uid
+			{
+			_out = handler.createReply();
+			_out.write_long(uid());
+				break;
+			}
+			case 3: // _set_successeurPanne
+			{
+			_out = handler.createReply();
+			successeurPanne(_input.read_string());
+				break;
+			}
+			case 4: // _set_uid
+			{
+			_out = handler.createReply();
+			uid(_input.read_long());
+				break;
+			}
+			case 5: // _get_successeur
 			{
 			_out = handler.createReply();
 			_out.write_string(successeur());
+				break;
+			}
+			case 6: // _set_successeur
+			{
+			_out = handler.createReply();
+			successeur(_input.read_string());
 				break;
 			}
 		}

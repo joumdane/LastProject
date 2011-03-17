@@ -17,7 +17,7 @@ public class _processusStub
 	}
 
 	public final static java.lang.Class _opsClass = projetcorba.election.processusOperations.class;
-	public void max_uid(int a)
+	public java.lang.String successeurPanne()
 	{
 		while(true)
 		{
@@ -26,10 +26,9 @@ public class _processusStub
 			org.omg.CORBA.portable.InputStream _is = null;
 			try
 			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_set_max_uid",true);
-				_os.write_long(a);
+				org.omg.CORBA.portable.OutputStream _os = _request("_get_successeurPanne",true);
 				_is = _invoke(_os);
-				return;
+				return _is.read_string();
 			}
 			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
 			catch( org.omg.CORBA.portable.ApplicationException _ax )
@@ -45,59 +44,14 @@ public class _processusStub
 
 		else
 		{
-			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_max_uid", _opsClass);
-			if( _so == null )
-				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
-			processusOperations _localServant = (processusOperations)_so.servant;
-				try
-				{
-					_localServant.max_uid(a);
-				}
-				finally
-				{
-					_servant_postinvoke(_so);
-				}
-				return;
-			}
-		}
-
-	}
-
-	public int max_uid()
-	{
-		while(true)
-		{
-		if(! this._is_local())
-		{
-			org.omg.CORBA.portable.InputStream _is = null;
-			try
-			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_get_max_uid",true);
-				_is = _invoke(_os);
-				return _is.read_long();
-			}
-			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
-			catch( org.omg.CORBA.portable.ApplicationException _ax )
-			{
-				String _id = _ax.getId();
-				throw new RuntimeException("Unexpected exception " + _id );
-			}
-			finally
-			{
-				this._releaseReply(_is);
-			}
-		}
-
-		else
-		{
-		org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_get_max_uid", _opsClass);
+		org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_get_successeurPanne", _opsClass);
 		if( _so == null )
 			throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
 			processusOperations _localServant = (processusOperations)_so.servant;
-			int _result;
+			java.lang.String _result;
 		try
 		{
-			_result = _localServant.max_uid();
+			_result = _localServant.successeurPanne();
 		}
 		finally
 		{
@@ -109,7 +63,7 @@ public class _processusStub
 
 	}
 
-	public void uid(int a)
+	public void recevoir(org.omg.CORBA.IntHolder max)
 	{
 		while(true)
 		{
@@ -118,9 +72,10 @@ public class _processusStub
 			org.omg.CORBA.portable.InputStream _is = null;
 			try
 			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_set_uid",true);
-				_os.write_long(a);
+				org.omg.CORBA.portable.OutputStream _os = _request( "recevoir", true);
+				_os.write_long(max.value);
 				_is = _invoke(_os);
+				max.value = _is.read_long();
 				return;
 			}
 			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
@@ -134,23 +89,23 @@ public class _processusStub
 				this._releaseReply(_is);
 			}
 		}
-
 		else
 		{
-			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_uid", _opsClass);
+			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "recevoir", _opsClass );
 			if( _so == null )
 				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
 			processusOperations _localServant = (processusOperations)_so.servant;
-				try
-				{
-					_localServant.uid(a);
-				}
-				finally
-				{
-					_servant_postinvoke(_so);
-				}
-				return;
+			try
+			{
+			_localServant.recevoir(max);
 			}
+			finally
+			{
+				_servant_postinvoke(_so);
+			}
+			return;
+		}
+
 		}
 
 	}
@@ -201,53 +156,6 @@ public class _processusStub
 
 	}
 
-	public int recevoir(int uid)
-	{
-		while(true)
-		{
-		if(! this._is_local())
-		{
-			org.omg.CORBA.portable.InputStream _is = null;
-			try
-			{
-				org.omg.CORBA.portable.OutputStream _os = _request( "recevoir", true);
-				_os.write_long(uid);
-				_is = _invoke(_os);
-				int _result = _is.read_long();
-				return _result;
-			}
-			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
-			catch( org.omg.CORBA.portable.ApplicationException _ax )
-			{
-				String _id = _ax.getId();
-				throw new RuntimeException("Unexpected exception " + _id );
-			}
-			finally
-			{
-				this._releaseReply(_is);
-			}
-		}
-		else
-		{
-			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "recevoir", _opsClass );
-			if( _so == null )
-				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
-			processusOperations _localServant = (processusOperations)_so.servant;
-			int _result;			try
-			{
-			_result = _localServant.recevoir(uid);
-			}
-			finally
-			{
-				_servant_postinvoke(_so);
-			}
-			return _result;
-		}
-
-		}
-
-	}
-
 	public void successeurPanne(java.lang.String a)
 	{
 		while(true)
@@ -294,7 +202,7 @@ public class _processusStub
 
 	}
 
-	public void elu(boolean a)
+	public void uid(int a)
 	{
 		while(true)
 		{
@@ -303,8 +211,8 @@ public class _processusStub
 			org.omg.CORBA.portable.InputStream _is = null;
 			try
 			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_set_elu",true);
-				_os.write_boolean(a);
+				org.omg.CORBA.portable.OutputStream _os = _request("_set_uid",true);
+				_os.write_long(a);
 				_is = _invoke(_os);
 				return;
 			}
@@ -322,13 +230,13 @@ public class _processusStub
 
 		else
 		{
-			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_elu", _opsClass);
+			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_uid", _opsClass);
 			if( _so == null )
 				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
 			processusOperations _localServant = (processusOperations)_so.servant;
 				try
 				{
-					_localServant.elu(a);
+					_localServant.uid(a);
 				}
 				finally
 				{
@@ -336,144 +244,6 @@ public class _processusStub
 				}
 				return;
 			}
-		}
-
-	}
-
-	public void successeur(java.lang.String a)
-	{
-		while(true)
-		{
-		if(! this._is_local())
-		{
-			org.omg.CORBA.portable.InputStream _is = null;
-			try
-			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_set_successeur",true);
-				_os.write_string(a);
-				_is = _invoke(_os);
-				return;
-			}
-			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
-			catch( org.omg.CORBA.portable.ApplicationException _ax )
-			{
-				String _id = _ax.getId();
-				throw new RuntimeException("Unexpected exception " + _id );
-			}
-			finally
-			{
-				this._releaseReply(_is);
-			}
-		}
-
-		else
-		{
-			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_successeur", _opsClass);
-			if( _so == null )
-				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
-			processusOperations _localServant = (processusOperations)_so.servant;
-				try
-				{
-					_localServant.successeur(a);
-				}
-				finally
-				{
-					_servant_postinvoke(_so);
-				}
-				return;
-			}
-		}
-
-	}
-
-	public java.lang.String successeurPanne()
-	{
-		while(true)
-		{
-		if(! this._is_local())
-		{
-			org.omg.CORBA.portable.InputStream _is = null;
-			try
-			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_get_successeurPanne",true);
-				_is = _invoke(_os);
-				return _is.read_string();
-			}
-			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
-			catch( org.omg.CORBA.portable.ApplicationException _ax )
-			{
-				String _id = _ax.getId();
-				throw new RuntimeException("Unexpected exception " + _id );
-			}
-			finally
-			{
-				this._releaseReply(_is);
-			}
-		}
-
-		else
-		{
-		org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_get_successeurPanne", _opsClass);
-		if( _so == null )
-			throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
-			processusOperations _localServant = (processusOperations)_so.servant;
-			java.lang.String _result;
-		try
-		{
-			_result = _localServant.successeurPanne();
-		}
-		finally
-		{
-			_servant_postinvoke(_so);
-		}
-		return _result;
-		}
-		}
-
-	}
-
-	public boolean elu()
-	{
-		while(true)
-		{
-		if(! this._is_local())
-		{
-			org.omg.CORBA.portable.InputStream _is = null;
-			try
-			{
-				org.omg.CORBA.portable.OutputStream _os = _request("_get_elu",true);
-				_is = _invoke(_os);
-				return _is.read_boolean();
-			}
-			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
-			catch( org.omg.CORBA.portable.ApplicationException _ax )
-			{
-				String _id = _ax.getId();
-				throw new RuntimeException("Unexpected exception " + _id );
-			}
-			finally
-			{
-				this._releaseReply(_is);
-			}
-		}
-
-		else
-		{
-		org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_get_elu", _opsClass);
-		if( _so == null )
-			throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
-			processusOperations _localServant = (processusOperations)_so.servant;
-			boolean _result;
-		try
-		{
-			_result = _localServant.elu();
-		}
-		finally
-		{
-			_servant_postinvoke(_so);
-		}
-		return _result;
-		}
 		}
 
 	}
@@ -520,6 +290,52 @@ public class _processusStub
 		}
 		return _result;
 		}
+		}
+
+	}
+
+	public void successeur(java.lang.String a)
+	{
+		while(true)
+		{
+		if(! this._is_local())
+		{
+			org.omg.CORBA.portable.InputStream _is = null;
+			try
+			{
+				org.omg.CORBA.portable.OutputStream _os = _request("_set_successeur",true);
+				_os.write_string(a);
+				_is = _invoke(_os);
+				return;
+			}
+			catch( org.omg.CORBA.portable.RemarshalException _rx ){}
+			catch( org.omg.CORBA.portable.ApplicationException _ax )
+			{
+				String _id = _ax.getId();
+				throw new RuntimeException("Unexpected exception " + _id );
+			}
+			finally
+			{
+				this._releaseReply(_is);
+			}
+		}
+
+		else
+		{
+			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "_set_successeur", _opsClass);
+			if( _so == null )
+				throw new org.omg.CORBA.UNKNOWN("local invocations not supported!");
+			processusOperations _localServant = (processusOperations)_so.servant;
+				try
+				{
+					_localServant.successeur(a);
+				}
+				finally
+				{
+					_servant_postinvoke(_so);
+				}
+				return;
+			}
 		}
 
 	}

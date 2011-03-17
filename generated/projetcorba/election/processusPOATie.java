@@ -49,19 +49,14 @@ public class processusPOATie
 			return super._default_POA();
 		}
 	}
-	public void max_uid(int a)
+	public java.lang.String successeurPanne()
 	{
-		_delegate.max_uid(a);
+		return _delegate.successeurPanne();
 	}
 
-	public int max_uid()
+	public void recevoir(org.omg.CORBA.IntHolder max)
 	{
-		return _delegate.max_uid();
-	}
-
-	public void uid(int a)
-	{
-		_delegate.uid(a);
+_delegate.recevoir(max);
 	}
 
 	public int uid()
@@ -69,39 +64,24 @@ public class processusPOATie
 		return _delegate.uid();
 	}
 
-	public int recevoir(int uid)
-	{
-		return _delegate.recevoir(uid);
-	}
-
 	public void successeurPanne(java.lang.String a)
 	{
 		_delegate.successeurPanne(a);
 	}
 
-	public void elu(boolean a)
+	public void uid(int a)
 	{
-		_delegate.elu(a);
-	}
-
-	public void successeur(java.lang.String a)
-	{
-		_delegate.successeur(a);
-	}
-
-	public java.lang.String successeurPanne()
-	{
-		return _delegate.successeurPanne();
-	}
-
-	public boolean elu()
-	{
-		return _delegate.elu();
+		_delegate.uid(a);
 	}
 
 	public java.lang.String successeur()
 	{
 		return _delegate.successeur();
+	}
+
+	public void successeur(java.lang.String a)
+	{
+		_delegate.successeur(a);
 	}
 
 }
