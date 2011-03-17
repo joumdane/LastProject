@@ -35,7 +35,7 @@ public class Outil{
 			p = Outil.lookupRef(successeur,orb);
 			successeur=p.successeur();
 			
-			if(successeur.equals(uid)){
+			if(successeur.equals((""+uid))){
 				System.out.println("TROUVE!!!");						
 				found=true;
 				break;
