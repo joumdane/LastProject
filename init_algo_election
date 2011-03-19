@@ -1,0 +1,5 @@
+#! /bin/csh
+
+# Suppression de tous les *.ref qui existe dans le répertoire courant.
+rm -f *.ref
+
