@@ -47,7 +47,7 @@ public class Serveur {
 			if (operation.equals("1")){
 				System.out.println("- Démarrage de l'élection");
 				//il faut récuperer de nouveau l'objet current parce que, il se peut que son successeur a était modifié	
-			        currentPs = Outil.lookUpRef("" + args[0], orb);
+			        currentPs = Outil.lookupRef("" +args[0], orb);
 				boolean found = false;
 				successeur=currentPs.successeur();
 				int uid=Integer.parseInt(args[0]);
@@ -103,9 +103,9 @@ public class Serveur {
 
 
 			}else if(operation.equals("2")){
-				currentPs = Outil.lookUpRef("" + args[0], orb);
-				Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb, poa);
-				
+				//currentPs = Outil.lookupRef("" + args[0], orb);
+				processus pred = Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb);
+				pred.successeur(successeur);
 				System.exit(1);
 		        }
 		}catch(Exception ex){

@@ -39,7 +39,7 @@ public class Outil{
 	}
 	
 	//Reconstitution de l'anneau
-	public static void reconstituerAnneau(int id, String successeur,ORB orb, POA poa){
+	public static processus reconstituerAnneau(int id, String successeur,ORB orb){
 	   processus p = lookupRef(successeur, orb);
 	   System.out.print("Anneau: " + successeur + "> ");
 	   processus tmp = null;
@@ -50,7 +50,8 @@ public class Outil{
 	   }
 	   tmp.successeur(successeur);
            System.out.println(tmp.successeur());
- 	   preparationObjetCoteServeur(tmp.uid(),tmp.successeur(),orb, poa);
+	   return tmp;
+ 	   //preparationObjetCoteServeur(tmp.uid(),tmp.successeur(),orb, poa);
 	}
 	
 	//Récupération de la machine(processus) suivant(e)
