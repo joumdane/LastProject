@@ -14,6 +14,30 @@ public class Outil{
 	
 	public Outil(){
 	};
+	
+	public static void verifierExistanceProcessus(String uid, ORB orb){
+		File f = new File("p" + uid+ ".ref");
+		
+	   	 // Make sure the file or directory exists and isn't write protected
+	    	if (!f.exists()){
+			
+			System.out.println("le processus " + uid + " n'existe plus");			    
+	    	}else{
+			try{
+				processus tmp = Outil.lookupRef(uid, orb);
+				System.out.println("le processus " + tmp.uid() + " existe");
+			}catch(Exception e){
+				System.out.println("le processus  "+ uid + "est en état zombie !!");
+			}			
+					
+		}
+	}
+	//Vérification du successeur
+	public static void verifierSuccesseur(ORB orb, int uid, String successeur, String successeurPanne){
+		System.out.println("Vérification en cours");
+		Outil.verifierExistanceProcessus(successeur, orb);
+		Outil.verifierExistanceProcessus(successeurPanne, orb);
+	}
 
 	//Procédure de l'élection
 	public static void election(ORB orb,Orb_Run orb_run, int uid){

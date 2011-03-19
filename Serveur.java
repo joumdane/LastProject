@@ -42,6 +42,7 @@ public class Serveur {
 			System.out.println("\n\n Que faire : 1- Démarrer l'élection");
 			System.out.println("             2- Arrêter la machine ");
 			System.out.println("             3- Arrêter brutale la machine ");
+			System.out.println("             4- Vérifier l'existence des successeurs");
 			successeur="";
 			operation = br.readLine(); 
 			//
@@ -55,7 +56,35 @@ public class Serveur {
 				
 				System.exit(1);
 		        }else if(operation.equals("3")){
+			 /*	
+		          //Objet File qui représente le chemin du fichier cible
+			    File f = new File("p" + args[0] + ".ref");
+
+			    //Suppression du fichier .ref associé au processus en cours
+			    if (f.exists()){
+				f.delete();			    
+			    }*/
+					// Desactive l'objet CORBA
+
+		//
+
+		try {
+
+		   //byte [] ObjID = poa.reference_to_id(ref);
+			
+		   poa.the_POAManager().deactivate(false,false);
+		   //deactivate_object(ObjID);
+		   }
+
+		catch (Exception e) {
+
+		    System.out.println("POA Exception " + e);
+
+		}
+					
 				System.exit(1);
+		        }else if(operation.equals("4")){
+				Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2]);
 		        }
 		}catch(Exception ex){
 			System.out.println("Erreur lecture");
