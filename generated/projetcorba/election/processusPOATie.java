@@ -74,6 +74,11 @@ public class processusPOATie
 		return _delegate.recevoir(uid);
 	}
 
+	public void successeurPanne(java.lang.String a)
+	{
+		_delegate.successeurPanne(a);
+	}
+
 	public void elu(boolean a)
 	{
 		_delegate.elu(a);
@@ -82,6 +87,11 @@ public class processusPOATie
 	public void successeur(java.lang.String a)
 	{
 		_delegate.successeur(a);
+	}
+
+	public java.lang.String successeurPanne()
+	{
+		return _delegate.successeurPanne();
 	}
 
 	public boolean elu()

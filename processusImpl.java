@@ -11,15 +11,16 @@ public class processusImpl extends processusPOA{
 	private String successeur;
 	private boolean elu;
 	private int max_uid;
-	
+	private String successeurPanne;
 
 	//Constructeurs
 	public processusImpl(){
 	}	
 	
-	public processusImpl(int uid, String successeur, boolean elu){
+	public processusImpl(int uid, String successeur, String successeurPanne, boolean elu){
 		this.uid = uid;
 		this.successeur = successeur;
+		this.successeurPanne = successeurPanne;
 		this.elu = elu;
 		this.max_uid = uid;
 	}
@@ -37,6 +38,10 @@ public class processusImpl extends processusPOA{
 		this.successeur = successeur;	
 	}
 
+	public void successeurPanne(String successeurPanne){
+		this.successeurPanne = successeurPanne;	
+	}
+
 	public void elu(boolean elu){
 		this.elu = elu;	
 	}
@@ -52,6 +57,10 @@ public class processusImpl extends processusPOA{
 
 	public String successeur(){
 		return successeur;	
+	}
+
+	public String successeurPanne(){
+		return successeurPanne;	
 	}
 
 	public boolean elu(){

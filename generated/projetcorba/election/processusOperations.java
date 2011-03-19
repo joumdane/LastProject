@@ -14,6 +14,8 @@ public interface processusOperations
 	void uid(int arg);
 	java.lang.String successeur();
 	void successeur(java.lang.String arg);
+	java.lang.String successeurPanne();
+	void successeurPanne(java.lang.String arg);
 	boolean elu();
 	void elu(boolean arg);
 	int max_uid();

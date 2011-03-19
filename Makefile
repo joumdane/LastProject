@@ -1,7 +1,7 @@
 
 
 MODULE = projetcorba/election
-JAVA  = Orb_Run.java Outil.java processusImpl.java Serveur.java
+JAVA  = Orb_Run.java  processusImpl.java Outil.java Serveur.java
 IDL   = server.idl
 
 CLASS = $(JAVA:%.java=classes/$(MODULE)/%.class) 

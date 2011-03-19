@@ -18,10 +18,12 @@ public abstract class processusPOA
 		m_opsHash.put ( "_set_uid", new java.lang.Integer(2));
 		m_opsHash.put ( "_get_uid", new java.lang.Integer(3));
 		m_opsHash.put ( "recevoir", new java.lang.Integer(4));
-		m_opsHash.put ( "_set_elu", new java.lang.Integer(5));
-		m_opsHash.put ( "_set_successeur", new java.lang.Integer(6));
-		m_opsHash.put ( "_get_elu", new java.lang.Integer(7));
-		m_opsHash.put ( "_get_successeur", new java.lang.Integer(8));
+		m_opsHash.put ( "_set_successeurPanne", new java.lang.Integer(5));
+		m_opsHash.put ( "_set_elu", new java.lang.Integer(6));
+		m_opsHash.put ( "_set_successeur", new java.lang.Integer(7));
+		m_opsHash.put ( "_get_successeurPanne", new java.lang.Integer(8));
+		m_opsHash.put ( "_get_elu", new java.lang.Integer(9));
+		m_opsHash.put ( "_get_successeur", new java.lang.Integer(10));
 	}
 	private String[] ids = {"IDL:projetcorba/election/processus:1.0"};
 	public projetcorba.election.processus _this()
@@ -74,25 +76,37 @@ public abstract class processusPOA
 				_out.write_long(recevoir(_arg0));
 				break;
 			}
-			case 5: // _set_elu
+			case 5: // _set_successeurPanne
+			{
+			_out = handler.createReply();
+			successeurPanne(_input.read_string());
+				break;
+			}
+			case 6: // _set_elu
 			{
 			_out = handler.createReply();
 			elu(_input.read_boolean());
 				break;
 			}
-			case 6: // _set_successeur
+			case 7: // _set_successeur
 			{
 			_out = handler.createReply();
 			successeur(_input.read_string());
 				break;
 			}
-			case 7: // _get_elu
+			case 8: // _get_successeurPanne
+			{
+			_out = handler.createReply();
+			_out.write_string(successeurPanne());
+				break;
+			}
+			case 9: // _get_elu
 			{
 			_out = handler.createReply();
 			_out.write_boolean(elu());
 				break;
 			}
-			case 8: // _get_successeur
+			case 10: // _get_successeur
 			{
 			_out = handler.createReply();
 			_out.write_string(successeur());

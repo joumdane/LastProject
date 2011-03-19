@@ -14,13 +14,75 @@ public class Outil{
 	
 	public Outil(){
 	};
+
+	//Procédure de l'élection
+	public static void election(ORB orb,Orb_Run orb_run, int uid){
+		System.out.println("- Démarrage de l'élection");
+	        processus currentPs = Outil.lookupRef("" + uid, orb);
+		boolean found = false;
+		String successeur=currentPs.successeur();
+		//int uid=Integer.parseInt(uid);
+		processus p = null;
+		while(!successeur.equals("" + uid))
+		{
+			System.out.println(successeur+"|"+uid);			
+			File fichier = new File("p"+successeur+".ref");
+			if(!fichier.exists())
+			{
+				System.out.println("fff");
+				break;						
+			}
+			p = Outil.lookupRef(successeur,orb);
+			successeur=p.successeur();
+			
+			if(successeur.equals(uid)){
+				System.out.println("TROUVE!!!");						
+				found=true;
+				break;
+			}
+			
+		}//fin while
+		if(found){
+			 //lancer algorithme;
+			boolean fin_algo=false;
+			System.out.println("lancement algo");
+			p = Outil.lookupRef(successeur,orb);
+			successeur=p.successeur();
+			
+			while(!fin_algo){
+
+				p = Outil.lookupRef(successeur,orb);
+				System.out.println("le sucesseur : "+successeur);
+				System.out.println("uid envoye : "+uid);
+				uid=p.recevoir(uid);
+				System.out.println("uid reçu : "+uid);
+				successeur=p.successeur();
+				if(p.elu()){
+					fin_algo=true;
+					}
+				System.out.println("Elu courant : "+uid);
+			try{
+				orb_run.sleep(2000);
+			}catch(Exception e){
+			}
+				
+		
+			
+			}//fin while
+			System.out.println("Le gagnant est : "+uid);
+		}//fin if
+		else{
+			 System.out.println("ANNEAU NON FORME");
+		}				
+				
+	}
 	
 	//Préparation de l'Objet côté serveur
-	public static void preparationObjetCoteServeur(int uid, String successeur, ORB orb, POA poa){
+	public static void preparationObjetCoteServeur(int uid, String successeur, String successeurPanne, ORB orb, POA poa){
 	try{
 	    poa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             poa.the_POAManager().activate();	
-    	    processusImpl machine = new processusImpl(uid, successeur,false);
+    	    processusImpl machine = new processusImpl(uid, successeur,successeurPanne, false);
 	    org.omg.CORBA.Object tmp = poa.servant_to_reference(machine);	
 	    try {
 		String processus_ref = orb.object_to_string(tmp);
