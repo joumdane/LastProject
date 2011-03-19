@@ -84,7 +84,7 @@ public class Serveur {
 					
 				System.exit(1);
 		        }else if(operation.equals("4")){
-				Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2]);
+				Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
 		        }
 		}catch(Exception ex){
 			System.out.println("Erreur lecture");

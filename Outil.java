@@ -15,28 +15,38 @@ public class Outil{
 	public Outil(){
 	};
 	
-	public static void verifierExistanceProcessus(String uid, ORB orb){
+	public static boolean verifierExistanceProcessus(String uid, ORB orb){
 		File f = new File("p" + uid+ ".ref");
-		
-	   	 // Make sure the file or directory exists and isn't write protected
 	    	if (!f.exists()){
-			
-			System.out.println("le processus " + uid + " n'existe plus");			    
+			System.out.println("le processus " + uid + " n'existe plus");
+			return false;			    
 	    	}else{
 			try{
 				processus tmp = Outil.lookupRef(uid, orb);
 				System.out.println("le processus " + tmp.uid() + " existe");
+				return true;
 			}catch(Exception e){
 				System.out.println("le processus  "+ uid + "est en état zombie !!");
+				return false;
 			}			
-					
+		
 		}
 	}
 	//Vérification du successeur
-	public static void verifierSuccesseur(ORB orb, int uid, String successeur, String successeurPanne){
+	public static void verifierSuccesseur(ORB orb, int uid, String successeur, String successeurPanne, processusHolder ref){
+		boolean exists = false;
+		processus tmp = ref.value;			
 		System.out.println("Vérification en cours");
-		Outil.verifierExistanceProcessus(successeur, orb);
-		Outil.verifierExistanceProcessus(successeurPanne, orb);
+		if(!Outil.verifierExistanceProcessus(successeur, orb)){
+			tmp.successeur(tmp.successeurPanne());
+			processus nxtPs = Outil.lookupRef(successeurPanne, orb);
+			tmp.successeurPanne(nxtPs.successeur());	
+		}
+		if(!Outil.verifierExistanceProcessus(successeurPanne, orb)){
+			processus nxtPs = Outil.lookupRef(successeur, orb);
+			tmp.successeurPanne(nxtPs.successeurPanne());						
+		}
+		ref.value = tmp;
 	}
 
 	//Procédure de l'élection
