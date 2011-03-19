@@ -13,7 +13,7 @@ public class Serveur {
     public static void main(String[] args) throws IOException {
         
         try {
-	
+	    processusHolder ref= new processusHolder();
 		
             //init ORB
             ORB orb = ORB.init(args, null);
@@ -103,9 +103,9 @@ public class Serveur {
 
 
 			}else if(operation.equals("2")){
-				//currentPs = Outil.lookupRef("" + args[0], orb);
-				processus pred = Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb);
-				pred.successeur(successeur);
+				currentPs = Outil.lookupRef("" + args[0], orb);
+				Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb, ref);
+				
 				System.exit(1);
 		        }
 		}catch(Exception ex){
