@@ -27,15 +27,17 @@ public class SubTimer extends Thread{
 		 this.ref = ref;
 	 }
 	 public void run(){
-		while(!end){
-		   Outil.verifierSuccesseur(orb,uid, successeur, successeurPanne, ref);
-		   try {
-		       Thread.sleep(5000);
-		   } catch (Exception ex){
-		   }				
-	 	}if(end){
-			end = false;
-			this.suspend();		
-		}
+		try{
+			while(!end){
+			    Outil.verifierSuccesseur(orb,uid, successeur, successeurPanne, ref);
+		 	}if(end){
+				end = false;
+				this.suspend();		
+			}
+		
+		}catch(Exception e){
+				
+			}
+		
 	}
 }

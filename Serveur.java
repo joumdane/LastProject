@@ -40,8 +40,6 @@ public class Serveur {
 	    processus currentPs = null;
 	    while(true){	
 		try{
-			
-			
 			//options
 			System.out.println("\n\n      .:::MENU:::.      ");             
 			System.out.println("1- Démarrer l'élection");
@@ -92,7 +90,14 @@ public class Serveur {
 				}
 				
 		        }else if(operation.equals("5")){
-				Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+				if(ref.value == null){
+					Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+				}else{
+				   processus ps = ref.value;
+				   Outil.periodiqueVerification(orb,ps.uid(), ps.successeur(), ps.successeurPanne(), ref);	
+				}
+				
+				
 		        }else if(operation.equals("6")){
 				Outil.arreterVerificationPeriodique();
 		        }

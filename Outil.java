@@ -33,7 +33,8 @@ public class Outil{
 		boolean exists = false;
 		File f = new File("p" + uid+ ".ref");
 	    	if (!f.exists()){
-			System.out.println("le processus " + uid + " n'existe plus");		    
+			System.out.println("le processus " + uid + " n'existe plus");
+			System.out.println("Reconstitution de l'anneau en cours ...");    
 	    	}else{ 
 			
 			try{
@@ -42,7 +43,7 @@ public class Outil{
 				if(tmp != null){
 					exists = true;			
 				}	
-			}catch(TRANSIENT e){
+			}catch(Exception e){ //TRANSIENT
 				f.delete();
 			}			
 			
@@ -57,7 +58,7 @@ public class Outil{
 		String id = ""+uid;
 		processus tmp = Outil.lookupRef(id, orb);
 		processus nxtPs = null;	
-		System.out.println("Vérification en cours...");
+		System.out.println("\n\nVérification en cours...");
 		if(!Outil.verifierExistanceProcessus(successeur, orb)){
 			processusEnPanne = successeur;
 			tmp.successeur(successeurPanne);
