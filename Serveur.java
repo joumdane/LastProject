@@ -94,7 +94,7 @@ public class Serveur {
 		        }else if(operation.equals("5")){
 				Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
 		        }else if(operation.equals("6")){
-				//Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+				Outil.arreterVerificationPeriodique();
 		        }
 			
 			
