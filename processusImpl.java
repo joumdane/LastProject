@@ -19,7 +19,7 @@ public class processusImpl extends processusPOA{
 	public processusImpl(int uid, String successeur,String successeurPanne){
 		this.uid = uid;
 		this.successeur = successeur;
-		this.successeurPanne=this.successeurPanne;
+		this.successeurPanne= successeurPanne;
 	}
 	
 	//Setters

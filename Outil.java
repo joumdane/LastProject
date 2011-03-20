@@ -8,6 +8,7 @@ import java.lang.*;
 import java.util.*;
 import projetcorba.utils.*;
 import projetcorba.election.*;
+import org.omg.CORBA.*;
 
 public class Outil{
 
@@ -16,36 +17,52 @@ public class Outil{
 	};
 	
 	public static boolean verifierExistanceProcessus(String uid, ORB orb){
+		boolean exists = false;
 		File f = new File("p" + uid+ ".ref");
 	    	if (!f.exists()){
-			System.out.println("le processus " + uid + " n'existe plus");
-			return false;			    
-	    	}else{
+			System.out.println("le processus " + uid + " n'existe plus");		    
+	    	}else{ 
+			
 			try{
 				processus tmp = Outil.lookupRef(uid, orb);
-				System.out.println("le processus " + tmp.uid() + " existe");
-				return true;
-			}catch(Exception e){
-				System.out.println("le processus  "+ uid + "est en état zombie !!");
-				return false;
+				int frake = tmp.uid();
+				if(tmp != null){
+					exists = true;			
+				}	
+			}catch(TRANSIENT e){
+				f.delete();
 			}			
-		
+			
+			
 		}
+		return exists;	
 	}
 	//Vérification du successeur
 	public static void verifierSuccesseur(ORB orb, int uid, String successeur, String successeurPanne, processusHolder ref){
 		boolean exists = false;
-		processus tmp = ref.value;			
-		System.out.println("Vérification en cours");
+		String processusEnPanne = "";
+		String id = ""+uid;
+		processus tmp = Outil.lookupRef(id, orb);
+		processus nxtPs = null;	
+		System.out.println("Vérification en cours...");
 		if(!Outil.verifierExistanceProcessus(successeur, orb)){
-			tmp.successeur(tmp.successeurPanne());
-			processus nxtPs = Outil.lookupRef(successeurPanne, orb);
-			tmp.successeurPanne(nxtPs.successeur());	
+			processusEnPanne = successeur;
+			tmp.successeur(successeurPanne);
+			nxtPs = Outil.lookupRef(successeurPanne, orb);
+			tmp.successeurPanne(nxtPs.successeur());
+
+			while(!nxtPs.successeurPanne().equals(processusEnPanne)){		
+				nxtPs = Outil.lookupRef(nxtPs.successeur(), orb);
+			}
+			if(nxtPs.successeurPanne().equals(processusEnPanne)){
+				nxtPs.successeurPanne(tmp.successeur());
+					
+			}
+				
 		}
-		if(!Outil.verifierExistanceProcessus(successeurPanne, orb)){
-			processus nxtPs = Outil.lookupRef(successeur, orb);
-			tmp.successeurPanne(nxtPs.successeurPanne());						
-		}
+		
+		System.out.println("Successeur: " + tmp.successeur());
+		System.out.println("SuccesseurPanne: " + tmp.successeurPanne());
 		ref.value = tmp;
 	}
 

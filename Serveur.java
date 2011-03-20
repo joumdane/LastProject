@@ -39,7 +39,7 @@ public class Serveur {
 	    while(true){	
 		try{
 			//options
-			System.out.println("\n\n Que faire : 1- Démarrer l'élection");
+			System.out.println("\n\n ach biti dir : 1- Démarrer l'élection");
 			System.out.println("             2- Arrêter la machine ");
 			System.out.println("             3- Arrêter brutale la machine ");
 			System.out.println("             4- Vérifier l'existence des successeurs");
@@ -84,7 +84,12 @@ public class Serveur {
 					
 				System.exit(1);
 		        }else if(operation.equals("4")){
-				Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+				try{
+					Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
 		        }
 		}catch(Exception ex){
 			System.out.println("Erreur lecture");
