@@ -17,7 +17,7 @@ public class Orb_Run extends Thread {
     }                                             
 
     public void run() {
-        System.out.println("Le serveur est pret");
+        //System.out.println("Le serveur est pret");
         orb_.run();
 
     }

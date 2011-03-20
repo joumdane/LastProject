@@ -7,12 +7,15 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 import projetcorba.utils.*; //Orb_Run.java
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Serveur {
     public static void main(String[] args) throws IOException {
         
         try {
+		
 	    processusHolder ref= new processusHolder();
 		
             //init ORB
@@ -30,21 +33,29 @@ public class Serveur {
 	    ////////////////////////////////////////////////////
             // Invocation du serveur
             ////////////////////////////////////////////////////
-            //System.out.println("Menu: " +"p" + args[0]);
+       
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	    String operation;
 	    String successeur;
-	    //String ior="";
 	    processus currentPs = null;
 	    while(true){	
 		try{
+			
+			
 			//options
-			System.out.println("\n\n ach biti dir : 1- Démarrer l'élection");
-			System.out.println("             2- Arrêter la machine ");
-			System.out.println("             3- Arrêter brutale la machine ");
-			System.out.println("             4- Vérifier l'existence des successeurs");
+			System.out.println("\n\n      .:::MENU:::.      ");             
+			System.out.println("1- Démarrer l'élection");
+			System.out.println("2- Arrêter la machine ");
+			System.out.println("3- Arrêter brutalementla machine ");
+			System.out.println("4- Vérifier l'existence des successeurs");
+			System.out.println("5- Déclancher la vérification périodique du successeur");
+			System.out.println("6- Arrêter la vérification périodique du successeur");
+			System.out.print(" Que voulez vous faire: ");			
 			successeur="";
 			operation = br.readLine(); 
+				
+			
+
 			//
 			if (operation.equals("1")){
 				Outil.election(orb, orb_run, Integer.parseInt(args[0]));
@@ -56,31 +67,21 @@ public class Serveur {
 				
 				System.exit(1);
 		        }else if(operation.equals("3")){
-			 /*	
-		          //Objet File qui représente le chemin du fichier cible
-			    File f = new File("p" + args[0] + ".ref");
-
-			    //Suppression du fichier .ref associé au processus en cours
-			    if (f.exists()){
-				f.delete();			    
-			    }*/
-					// Desactive l'objet CORBA
-
-		//
-
-		try {
-
-		   //byte [] ObjID = poa.reference_to_id(ref);
 			
-		   poa.the_POAManager().deactivate(false,false);
-		   //deactivate_object(ObjID);
-		   }
 
-		catch (Exception e) {
+			try {
 
-		    System.out.println("POA Exception " + e);
+			   //byte [] ObjID = poa.reference_to_id(ref);
+			
+			   poa.the_POAManager().deactivate(false,false);
+			   //deactivate_object(ObjID);
+			   }
 
-		}
+			catch (Exception e) {
+
+			    System.out.println("POA Exception " + e);
+
+			}
 					
 				System.exit(1);
 		        }else if(operation.equals("4")){
@@ -90,7 +91,13 @@ public class Serveur {
 					e.printStackTrace();
 				}
 				
+		        }else if(operation.equals("5")){
+				Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+		        }else if(operation.equals("6")){
+				//Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
 		        }
+			
+			
 		}catch(Exception ex){
 			System.out.println("Erreur lecture");
 			System.exit(1);
@@ -102,4 +109,15 @@ public class Serveur {
             System.out.println(e);
         }
     }
+
+class SubTimer extends TimerTask{
+	public int i = 0;
+
+	public void run() {
+		System.out.println("" + ++i);
+	}
+
 }
+
+}
+

@@ -16,6 +16,32 @@ public class Outil{
 	public Outil(){
 	};
 	
+	//Périodique vérification du successeur
+	public static void periodiqueVerification(ORB orb, int uid, String successeur,String successeurPanne, processusHolder ref){		
+	/*Thread t = new Thread(){
+			 public void run(){
+				while(true){
+					Outil.verifierSuccesseur(orb,uid, successeur, successeurPanne, ref);
+					   try {
+					       Thread.sleep(1000);
+					   } catch (Exception ex){
+					   }				
+			 	}
+			}
+	      }
+	      t.setName("" + uid);
+	      t.start();*/
+	
+	System.out.println("uid" + uid);
+	System.out.println("successeur" + successeur);
+	System.out.println("successeurPanne" + successeurPanne);
+	
+	SubTimer sbTimer = new SubTimer(orb,uid, successeur, successeurPanne, ref);
+	sbTimer.setName("thread" + uid);
+	sbTimer.start();
+	}
+	
+	//Vérification de l'existance d'un processus cible
 	public static boolean verifierExistanceProcessus(String uid, ORB orb){
 		boolean exists = false;
 		File f = new File("p" + uid+ ".ref");
