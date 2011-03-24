@@ -22,8 +22,8 @@ public class Outil{
         }
 	
 	//Périodique vérification du successeur
-	public static void periodiqueVerification(ORB orb, int uid, String successeur,String successeurPanne, processusHolder ref){		
-	SubTimer sbTimer = new SubTimer(orb,uid, successeur, successeurPanne, ref);
+	public static void periodiqueVerification(ORB orb,  Orb_Run orb_run,int uid, String successeur,String successeurPanne, processusHolder ref){		
+	SubTimer sbTimer = new SubTimer(orb, orb_run, uid, successeur, successeurPanne, ref);
 	sbTimer.setName("thread" + uid);
 	sbTimer.start();
 	}
@@ -52,13 +52,13 @@ public class Outil{
 		return exists;	
 	}
 	//Vérification du successeur
-	public static void verifierSuccesseur(ORB orb, int uid, String successeur, String successeurPanne, processusHolder ref){
+	public static void verifierSuccesseur(ORB orb, Orb_Run orb_run, int uid, String successeur, String successeurPanne, processusHolder ref){
 		boolean exists = false;
 		String processusEnPanne = "";
 		String id = ""+uid;
 		processus tmp = Outil.lookupRef(id, orb);
 		processus nxtPs = null;	
-		System.out.println("\n\nVérification en cours...");
+		
 		if(!Outil.verifierExistanceProcessus(successeur, orb)){
 			processusEnPanne = successeur;
 			tmp.successeur(successeurPanne);
@@ -72,11 +72,13 @@ public class Outil{
 				nxtPs.successeurPanne(tmp.successeur());
 					
 			}
+			
+		Outil.election(orb, orb_run, tmp.uid());
 				
 		}
 		
-		System.out.println("Successeur: " + tmp.successeur());
-		System.out.println("SuccesseurPanne: " + tmp.successeurPanne());
+		//System.out.println("Successeur: " + tmp.successeur());
+		//System.out.println("SuccesseurPanne: " + tmp.successeurPanne());
 		ref.value = tmp;
 	}
 
@@ -200,7 +202,7 @@ public class Outil{
 				    	    } catch (IOException ex) {
 				    	   	System.err.println("Impossible de lire fichier : `" +
 					   	ex.getMessage() + "'");
-				           	System.exit(1);
+				           	
 						}
 
 				////////////////////////////////////////////////////

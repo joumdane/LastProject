@@ -38,6 +38,13 @@ public class Serveur {
     	    String operation;
 	    String successeur;
 	    processus currentPs = null;
+	    File f1 = new File("p" + args[1] + ".ref");
+ 	    File f2 = new File("p" + args[2] + ".ref");
+
+	    while((!f1.exists()) || (!f2.exists())){
+	    }
+	    
+	    Outil.periodiqueVerification(orb, orb_run, Integer.parseInt(args[0]), args[1], args[2], ref);
 	    while(true){	
 		try{
 			//options
@@ -84,17 +91,24 @@ public class Serveur {
 				System.exit(1);
 		        }else if(operation.equals("4")){
 				try{
-					Outil.verifierSuccesseur(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+					System.out.println("\n\nVérification en cours...");
+					if(ref.value == null){					
+						Outil.verifierSuccesseur(orb, orb_run, Integer.parseInt(args[0]), args[1], args[2], ref);
+					}else{
+					   processus ps = ref.value;
+					   Outil.verifierSuccesseur(orb, orb_run, ps.uid(), ps.successeur(), ps.successeurPanne(), ref);
+					}
 				}catch(Exception e){
 					e.printStackTrace();
 				}
-				
-		        }else if(operation.equals("5")){
+		      }else if(operation.equals("5")){
 				if(ref.value == null){
-					Outil.periodiqueVerification(orb,Integer.parseInt(args[0]), args[1], args[2], ref);
+					System.out.println("\n\nVérification en cours...");					
+					Outil.periodiqueVerification(orb, orb_run, Integer.parseInt(args[0]), args[1], args[2], ref);
 				}else{
+				   
 				   processus ps = ref.value;
-				   Outil.periodiqueVerification(orb,ps.uid(), ps.successeur(), ps.successeurPanne(), ref);	
+				   Outil.periodiqueVerification(orb, orb_run, ps.uid(), ps.successeur(), ps.successeurPanne(), ref);	
 				}
 				
 				

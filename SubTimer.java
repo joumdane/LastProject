@@ -13,14 +13,16 @@ import org.omg.CORBA.*;
 
 public class SubTimer extends Thread{
 	 public ORB orb;
+	 public Orb_Run orb_run;
 	 public int uid;
 	 public String successeur;
 	 public String successeurPanne;
 	 public processusHolder ref;
          public static  boolean  end  = false;    // termine le thread
 
-	 public SubTimer(ORB orb, int uid, String successeur, String successeurPanne, processusHolder ref){
+	 public SubTimer(ORB orb,  Orb_Run orb_run,int uid, String successeur, String successeurPanne, processusHolder ref){
 		 this.orb = orb;
+		 this.orb_run = orb_run;
 		 this.uid = uid;
 		 this.successeur = successeur;
 		 this.successeurPanne = successeurPanne;
@@ -29,7 +31,7 @@ public class SubTimer extends Thread{
 	 public void run(){
 		try{
 			while(!end){
-			    Outil.verifierSuccesseur(orb,uid, successeur, successeurPanne, ref);
+			    Outil.verifierSuccesseur(orb, orb_run, uid, successeur, successeurPanne, ref);
 		 	}if(end){
 				end = false;
 				this.suspend();		
