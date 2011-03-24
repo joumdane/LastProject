@@ -50,11 +50,16 @@ public class Serveur {
 			//options
 			System.out.println("\n\n      .:::MENU:::.      ");             
 			System.out.println("1- Démarrer l'élection");
-			System.out.println("2- Arrêter la machine ");
-			System.out.println("3- Arrêter brutalementla machine ");
+			System.out.println("2- Arrêter brutalement la machine ");
+
+/*	
+ * Pour déboguer le fonctionnement du programme
+		
+			System.out.println("3- Arrêter la machine ");
 			System.out.println("4- Vérifier l'existence des successeurs");
 			System.out.println("5- Déclancher la vérification périodique du successeur");
 			System.out.println("6- Arrêter la vérification périodique du successeur");
+*/
 			System.out.print(" Que voulez vous faire: ");			
 			successeur="";
 			operation = br.readLine(); 
@@ -67,11 +72,6 @@ public class Serveur {
 
 
 			}else if(operation.equals("2")){
-				currentPs = Outil.lookupRef("" + args[0], orb);
-				Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb, ref);
-				
-				System.exit(1);
-		        }else if(operation.equals("3")){
 			
 
 			try {
@@ -88,6 +88,11 @@ public class Serveur {
 
 			}
 					
+				System.exit(1);
+		        }else if(operation.equals("3")){
+				currentPs = Outil.lookupRef("" + args[0], orb);
+				Outil.reconstituerAnneau(currentPs.uid(),currentPs.successeur(),orb, ref);
+				
 				System.exit(1);
 		        }else if(operation.equals("4")){
 				try{

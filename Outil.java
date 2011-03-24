@@ -33,8 +33,7 @@ public class Outil{
 		boolean exists = false;
 		File f = new File("p" + uid+ ".ref");
 	    	if (!f.exists()){
-			System.out.println("le processus " + uid + " n'existe plus");
-			System.out.println("Reconstitution de l'anneau en cours ...");    
+
 	    	}else{ 
 			
 			try{
@@ -60,6 +59,8 @@ public class Outil{
 		processus nxtPs = null;	
 		
 		if(!Outil.verifierExistanceProcessus(successeur, orb)){
+			System.out.println("le processus " + successeur + " n'existe plus");
+			System.out.println("Reconstitution de l'anneau en cours ...");    	
 			processusEnPanne = successeur;
 			tmp.successeur(successeurPanne);
 			nxtPs = Outil.lookupRef(successeurPanne, orb);
@@ -72,14 +73,15 @@ public class Outil{
 				nxtPs.successeurPanne(tmp.successeur());
 					
 			}
-			
-		Outil.election(orb, orb_run, tmp.uid());
+		
+			ref.value = tmp;
+			Outil.election(orb, orb_run, tmp.uid());
 				
 		}
 		
 		//System.out.println("Successeur: " + tmp.successeur());
 		//System.out.println("SuccesseurPanne: " + tmp.successeurPanne());
-		ref.value = tmp;
+		
 	}
 
 	//Procédure de l'élection
