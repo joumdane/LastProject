@@ -1,43 +1,14 @@
-
-
 module projetcorba {
   module election {
 
-	//exception numeroInconnu {};
-	//exception dejaExistant {};
-
-
 	interface processus {
-		//Pour les attributs avec readonly il faut mettre dans la traduction uniquement les getters!!!!
-		//readonly attribute string nom_prenom;
-		
-		//Pour les attributs sans readonly il faut en plus mettre les setters!!!!!!
-       	 	attribute long uid;
-        	attribute string successeur;
-		attribute string successeurPanne;
-
+		attribute long uid;
+        	attribute string successeur; //uid du successeur du processus en question
+		attribute string successeurPanne; //uid du successeur de successeur du processus en question
 		void recevoir(inout long max);
 		
 	};
 
-
-    typedef sequence<processus> anneau;
-
-	
-	interface gestionprocessus{
-
-  		readonly attribute anneau anneau_processus;
-	
-		void creation_processus(in long uid,
-		        in long successeur,
-	     		inout processus ref);	
-		  //raises (dejaExistant);
-
-		void arreter_processus(in long uid);
-		//	raises (numeroInconnu);
-		
-	  };
-
-	};
+  };
 
 };
